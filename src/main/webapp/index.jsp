@@ -8,24 +8,13 @@
     </head>
     <body>
         <header>
-            <a href=""><img src="./res/101_0.jpg" alt="home"/> </a>
-            <a href=""><img src="./res/arrow.png" alt="upload"/> </a>
+            <a href="/picturerate"><img src="./res/101_0.jpg" alt="home"/> </a>
+            <a href="/picturerate/uploadinput"><img src="./res/arrow.png" alt="upload"/> </a>
             Welcome to PictureRate
-            <!--<nav>
+            <div class="suchleiste">
                 <form action="image/*" method="GET">
-                    <input type="text" name="name" placeholder="Search..">
-                    <input type ="submit" value="Search">
-                </form> 
-            </nav> -->
-            <div class="flexsearch">
-                <div class="search-wrapper">
-                    <form action="image/*" method="GET">
-                        <div class="search-input-warpper">
-                            <input class="search-input" type="text" placeholder="Bild suchen...">
-                        </div>
-                       <!-- <input class="search-submit" type="submit" placeholder="&#10140;"/> -->
-                    </form>
-                </div>
+                    <input class="suchleiste-input" type="text" placeholder="Bild suchen...">
+                </form>
             </div>
         </header>
         <h1>What?!</h1>

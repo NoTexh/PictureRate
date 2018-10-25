@@ -5,4 +5,26 @@
             30
         </session-timeout>
     </session-config>
+    
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/picturerate</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>UploadInput</servlet-name>
+        <servlet-class>de.dhbw.karlsruhe.picturerate.UploadServlet</servlet-class>
+        <jsp-file>/upload.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>UploadInput</servlet-name>
+        <url-pattern>/uploadinput</url-pattern>
+    </servlet-mapping>
 </web-app>
