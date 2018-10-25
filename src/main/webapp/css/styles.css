@@ -80,14 +80,14 @@ body > h2{
 
 .suchleiste{
     float: right;
-    padding: 3px 20px 0 0;
+    padding: 3px 10px 0 0;
 }
 
 .suchleiste-input{
     width: 200px;
     height: 40px;
     border-color: #888;
-    border-radius: 15px; /*height/2 + borderwidth*/
+    border-radius: 10px;
     border-style: solid;
     border-width: 4px;
     margin-top: 5px;
