@@ -13,5 +13,6 @@
             Welcome to PictureRate
         </header>
         <h1>Das hier ist die Detail Seite</h1>
+        <h1>Git Test</h1>
     </body>
 </html>
