@@ -1,0 +1,32 @@
+/** ALLGEMEINES **/
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+html{
+
+}
+
+header{
+  background-color: rgb(255,0,0);
+  border: 0px solid #a8aeb1;
+  border-bottom-width: 1px;
+  padding: 0em 1em 0em 1em;
+  font-variant: small-caps;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+
+}
+
+body{
+
+}
+
+
+h1, h2 {
+    
+}
+
