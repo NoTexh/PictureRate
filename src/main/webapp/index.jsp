@@ -8,8 +8,8 @@
     </head>
     <body>
         <header>
-            <a href=""><img src="./res/101_0.jpg" alt="home"/> </a>
-            <a href=""><img src="./res/arrow.png" alt="upload"/> </a>
+            <a href="/picturerate"><img src="./res/101_0.jpg" alt="home"/> </a>
+            <a href="/picturerate/uploadinput"><img src="./res/arrow.png" alt="upload"/> </a>
             Welcome to PictureRate
         </header>
         <h1>What?!</h1>

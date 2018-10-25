@@ -18,7 +18,7 @@
             Welcome to PictureRate
         </header>
 
-        <form action="upload" method="post" enctype="multipart/form-data">
+        <form action="uploaddata" method="post" enctype="multipart/form-data">
 
             <div class="file-upload">
                 <input class="file-upload-text" type="text" name="name">

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 @MultipartConfig
-@WebServlet(name = "UploadServlet", urlPatterns = {"/upload"})
+@WebServlet(name = "UploadServlet", urlPatterns = {"/uploaddata"})
 public class UploadServlet extends HttpServlet {
 
     /**
@@ -82,7 +82,7 @@ public class UploadServlet extends HttpServlet {
         Part part = request.getPart("image");
         String name = request.getParameter("name");
         
-         MysqlDataSource dataSource = DbConnection.getDataSource();
+        MysqlDataSource dataSource = DbConnection.getDataSource();
 
         if(part != null){
             try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPLOAD)){
