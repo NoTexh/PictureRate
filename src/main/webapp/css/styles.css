@@ -48,11 +48,6 @@ nav {
     line-height: 70px;
 }
 
-input[type=text]{
-    border: none;
-    font-size: 16px;
-}
-
 footer {
     border: 2px solid seagreen;
 }
