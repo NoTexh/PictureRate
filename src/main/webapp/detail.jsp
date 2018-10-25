@@ -12,8 +12,7 @@
             <a href=""><img src="./res/arrow.png" alt="upload"/> </a>
             Welcome to PictureRate
         </header>
-        <h1>What?!</h1>
-        <h2>du hast dich wohl verirrt?
-        mach das du weg kommst!</h2>
+        <h1>Das hier ist die Detail Seite</h1>
+        <h1>Git Test</h1>
     </body>
 </html>

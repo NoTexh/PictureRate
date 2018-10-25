@@ -6,12 +6,17 @@ header {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
     top: 0;
     left: 0;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+    
 }
 
 header img{
-    margin-left: 45px;
-    margin-top: 15px;
-    display: inline-block;
+    width: 70px;
+    height: 70px;
+    float: left;
 }
 
 main img{
@@ -67,4 +72,8 @@ section {
 
 aside {
     border: 2px solid tomato;
+}
+
+body > h2{
+    font-size: 10px;
 }
