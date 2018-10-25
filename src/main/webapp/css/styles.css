@@ -53,11 +53,6 @@ nav {
     line-height: 70px;
 }
 
-input[type=text]{
-    border: none;
-    font-size: 16px;
-}
-
 footer {
     border: 2px solid seagreen;
 }
@@ -82,3 +77,54 @@ aside {
 body > h2{
     font-size: 10px;
 }
+
+.search-wrapper{
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    overflow: hidden;
+    background: transparent;
+    margin: 0;
+    position: static;
+}
+
+.search-input-warpper{
+    padding: 3px 20px 0 0;
+    overflow: hidden;
+}
+
+.search-input{
+    width: 200px;
+    height: 40px;
+    border-color: #888;
+    border-radius: 15px; /*height/2 + borderwidth*/
+    border-style: solid;
+    border-width: 4px;
+    margin-top: 5px;
+    color: #333;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    
+}
+
+.flexsearch{
+    float: right;
+}
+
+/*.search-submit{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border: none;
+    maring-top: 10px;
+    margin: 5px;
+    background: transparent;
+    color: #888;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 40px;
+    line-height: 60px;
+}*/
