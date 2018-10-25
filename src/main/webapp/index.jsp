@@ -11,6 +11,11 @@
             <a href="/picturerate"><img src="./res/101_0.jpg" alt="home"/> </a>
             <a href="/picturerate/uploadinput"><img src="./res/arrow.png" alt="upload"/> </a>
             Welcome to PictureRate
+            <div class="suchleiste">
+                <form action="image/*" method="GET">
+                    <input class="suchleiste-input" type="text" placeholder="Bild suchen...">
+                </form>
+            </div>
         </header>
         <h1>What?!</h1>
         <h2>du hast dich wohl verirrt?
