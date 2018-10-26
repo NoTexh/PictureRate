@@ -1,14 +1,5 @@
-body {
-    font-family: sans-serif;
-    background-color: #eeeeee;
-}
-
 hr {
     width: 95%;
-}
-
-h1 {
-    font-size: 20px;
 }
 
 body > div {
@@ -17,34 +8,15 @@ body > div {
     margin-top: 10px;
 }
 
-fieldset {
-    border: 3px black solid;
-    text-align: center;
-    position: relative;
-}
-
 .tabelle1 > td {
     width: 20%;
-}
-
-.tabelle2 > td {
-    width: 25%;
-}
-
-.legend2 {
-  position: absolute;
-  top: -0.2em;
-  right: 20px;
-  background: #fff;
-  line-height:1.2em;
-
 }
 
 img {
     max-width: 100%;
 }
 
-table {
+.kommentarschreiben {
     width: 100%;
     text-align: center;
     padding: 5px;

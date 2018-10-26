@@ -5,11 +5,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Picture Rate</title>
         <link rel="stylesheet" href="./css/styles.css">
+        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
     </head>
     <body>
         <header>
-            <a href="/picturerate"><img src="./res/101_0.jpg" alt="home"/> </a>
-            <a href="/picturerate/uploadinput"><img src="./res/arrow.png" alt="upload"/> </a>
+            
+            <a href="/picturerate"> <i class="fas fa-home"></i></a>
+            <a href="/picturerate/uploadinput"><i class="fas fa-upload"></i></a>
             Welcome to PictureRate
             <div class="suchleiste">
                 <form action="image/*" method="GET">
