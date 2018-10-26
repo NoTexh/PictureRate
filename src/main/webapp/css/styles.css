@@ -1,4 +1,13 @@
-
+html{
+    background-color: #007ced;
+    background: linear-gradient(to bottom, #007ced 1%, #cce7ff 100%);
+    width: 100%;
+    height: 100%;
+        
+}
+body{
+    
+}
 header {
     background-color: #20272a;
     width: 100%;
@@ -19,34 +28,6 @@ header img{
     float: left;
 }
 
-main img{
-    height: 200px;
-    width: 200px;
-}
-
-header ul{
-    margin: 0 60px 0 0;
-    float: right;
-}
-
-header > ul > li {
-    display: inline-block;
-    height: 100%;
-}
-
-header > ul > li > a {
-    text-decoration: none;
-    color: #fff;
-    transition: background-color .2s;
-    min-width: 120px;
-    display: inline-block;
-    text-align: center;
-    box-sizing: border-box;
-    height: 100%;
-    line-height: 70px;
-    font-size: 16px;
-}
-
 nav {
     margin: 0 60px 0 0;
     float: right;
@@ -54,28 +35,12 @@ nav {
 }
 
 footer {
-    border: 2px solid seagreen;
+   
 }
 
 main {
     margin-top: 20px;
     border: 2px solid hotpink;
-}
-
-article {
-    border: 2px solid purple;
-}
-
-section {
-    border: 2px solid slateblue;
-}
-
-aside {
-    border: 2px solid tomato;
-}
-
-body > h2{
-    font-size: 10px;
 }
 
 .suchleiste{
