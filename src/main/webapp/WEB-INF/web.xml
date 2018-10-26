@@ -27,4 +27,17 @@
         <servlet-name>UploadInput</servlet-name>
         <url-pattern>/uploadinput</url-pattern>
     </servlet-mapping>
+    
+    <!-- Detail Seiten Aufruf mit ID übergeben -->
+    <servlet>
+        <servlet-name>DetailAufruf</servlet-name>
+        <servlet-class>de.dhbw.karlsruhe.picturerate.DetailSideCall</servlet-class>
+        <jsp-file>/detail.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>DetailAufruf</servlet-name>
+        <url-pattern>/detailaufruf</url-pattern>
+    </servlet-mapping>
+    
 </web-app>
