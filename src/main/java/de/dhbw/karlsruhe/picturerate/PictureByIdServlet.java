@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.karlsruhe.picturerate;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -18,10 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Uwe-Laptop
- */
 @WebServlet(name = "PictureByIdServlet", urlPatterns = {"/picture/*"})
 public class PictureByIdServlet extends HttpServlet {
 
@@ -35,7 +26,7 @@ public class PictureByIdServlet extends HttpServlet {
      */
     MysqlDataSource dataSource;
     PrintWriter out;
-    private static final String SQL_LATEST_10 = "SELECT data FROM picture WHERE idpicture = ?";
+    private static final String SQL_PICTURE_BY_ID = "SELECT data FROM picture WHERE idpicture = ?";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
@@ -43,14 +34,14 @@ public class PictureByIdServlet extends HttpServlet {
         
         String imageName = request.getPathInfo().substring(1);
         
-        try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_LATEST_10)) {
+        try (Connection connection = dataSource.getConnection(); 
+                PreparedStatement statement = connection.prepareStatement(SQL_PICTURE_BY_ID)) {
             statement.setString(1, imageName);
             
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     byte[] content = resultSet.getBytes("data");
                     response.setContentType(getServletContext().getMimeType("image/png"));
-                    System.out.println("Mimetyp" +getServletContext().getMimeType("image/png"));
                     response.setContentLength(content.length);
                     response.getOutputStream().write(content);
                 }

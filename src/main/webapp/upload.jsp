@@ -1,5 +1,6 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,14 +8,15 @@
         <title>Picture Upload</title>
         <link rel="stylesheet" href="./css/upload.css">
         <link rel="stylesheet" href="./css/styles.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
         <script src="FileUpload.js"></script>
         <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     </head>
 
     <body>
         <header>
-            <a href="/picturerate"><img src="./res/101_0.jpg" alt="home"/> </a>
-            <a href="/picturerate/uploadinput"><img src="./res/arrow.png" alt="upload"/> </a>
+            <a href="/picturerate"> <i class="fas fa-home"></i></a>
+            <a href="/picturerate/uploadinput"><i class="fas fa-upload"></i></a>
             Welcome to PictureRate
             <div class="suchleiste">
                 <form action="image/*" method="GET">
@@ -26,7 +28,7 @@
         <form action="uploaddata" method="post" enctype="multipart/form-data">
 
             <div class="file-upload">
-                <input class="file-upload-text" type="text" name="name">
+                <input class="file-upload-text" type="text" name="name" placeholder="Picturename...">
                 <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger('click')">Add Image</button>
 
                 <div class="image-upload-wrap">
@@ -43,11 +45,24 @@
                     </div>
                 </div>
 
-                <table style="width: 100%; margin-top: 20px ">
+                <table style="width: 100%; margin-top: 20px; border-spacing: 5px ">
                     <tr>
                         <td style="width: 50%;"><input class="file-upload-submit" type="submit" value="Upload"></td>
                         <td style="width: 50%;"><input class="file-upload-submit" type="reset" value="Reset"></td>
                     </tr>
+                    
+                    <%
+                        String errorMessage = (String) request.getAttribute("error");
+                        if(errorMessage == "ErrorBoth"){
+                            out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Picturename and Picture are missing</div></td></tr>");
+                        }else if(errorMessage == "ErrorName"){
+                            out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Picturename is missing</div></td></tr>");
+                        }else if(errorMessage == "ErrorPicture"){
+                            out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Picture is missing</div></td></tr>");
+                        }else if(errorMessage == "Sucess"){
+                            out.println("<tr><td colspan=\"2\"><div class=\"alert alert-sucess\" role=\"alert\">Sucessfully uploaded</div></td></tr>");
+                        }
+                    %>
                 </table>
             </div>
         </form>

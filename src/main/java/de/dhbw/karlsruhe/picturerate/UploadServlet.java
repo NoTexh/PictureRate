@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.karlsruhe.picturerate;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -24,47 +19,14 @@ import javax.servlet.http.Part;
 @WebServlet(name = "UploadServlet", urlPatterns = {"/uploaddata"})
 public class UploadServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UploadServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UploadServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+    private boolean isPartEmpty(Part part) throws IOException{
+        return (part.getInputStream().read() == -1);
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    
+    private boolean isStringEmpty(String name){
+        return (name == "" || name.isEmpty());
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -84,8 +46,19 @@ public class UploadServlet extends HttpServlet {
 
         MysqlDataSource dataSource = DbConnection.getDataSource();
 
-        if (part != null) {
-            try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPLOAD)) {
+        if (isPartEmpty(part) && isStringEmpty(name)) {
+            request.setAttribute("error", "ErrorBoth");
+            request.getRequestDispatcher("/upload.jsp").forward(request, response);
+        }else if(isStringEmpty(name)){
+            request.setAttribute("error", "ErrorName");
+            request.getRequestDispatcher("/upload.jsp").forward(request, response);
+        }else if(isPartEmpty(part)){
+            request.setAttribute("error", "ErrorPicture");
+            request.getRequestDispatcher("/upload.jsp").forward(request, response);
+        } 
+        else {
+            try (Connection connection = dataSource.getConnection();
+                    PreparedStatement statement = connection.prepareStatement(SQL_UPLOAD)) {
 
                 InputStream is = part.getInputStream();
 
@@ -97,7 +70,10 @@ public class UploadServlet extends HttpServlet {
                     is.close();
                     statement.close();
                     connection.close();
-                    response.sendRedirect("/picturerate/uploadinput");
+                    request.setAttribute("error", "Sucess");
+                    request.getRequestDispatcher("/upload.jsp").forward(request, response);
+                    //response.sendRedirect("/picturerate/uploadinput");
+
                 } else {
                     is.close();
                     statement.close();
@@ -109,15 +85,4 @@ public class UploadServlet extends HttpServlet {
             }
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
