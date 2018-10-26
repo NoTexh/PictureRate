@@ -41,7 +41,7 @@ public class UploadServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UploadServlet</title>");            
+            out.println("<title>Servlet UploadServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UploadServlet at " + request.getContextPath() + "</h1>");
@@ -73,7 +73,7 @@ public class UploadServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String SQL_UPLOAD = "INSERT INTO picture(data, name, uploaddate) VALUES (?,?,NOW())";
         PrintWriter out = response.getWriter();
@@ -81,20 +81,28 @@ public class UploadServlet extends HttpServlet {
 
         Part part = request.getPart("image");
         String name = request.getParameter("name");
-        
+
         MysqlDataSource dataSource = DbConnection.getDataSource();
 
-        if(part != null){
-            try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPLOAD)){
+        if (part != null) {
+            try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPLOAD)) {
 
                 InputStream is = part.getInputStream();
 
                 statement.setBlob(1, is);
-                statement.setString(2,name);
+                statement.setString(2, name);
 
                 result = statement.executeUpdate();
-                if(result > 0){
-                    out.println("<h1>image inserted sucessfully</h1>");
+                if (result > 0) {
+                    is.close();
+                    statement.close();
+                    connection.close();
+                    response.sendRedirect("/picturerate/uploadinput");
+                } else {
+                    is.close();
+                    statement.close();
+                    connection.close();
+                    out.println("<h1>Image wasnt inserted sucessfully -> Please check DB Connection</h1>");
                 }
             } catch (SQLException e) {
                 out.println(e);
