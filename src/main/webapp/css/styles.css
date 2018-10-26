@@ -22,7 +22,9 @@ header {
     
 }
 
-header img{
+header > a{
+    margin-top: 12px;
+    color: white;
     width: 70px;
     height: 70px;
     float: left;
