@@ -20,5 +20,6 @@
         <h1>What?!</h1>
         <h2>du hast dich wohl verirrt?
         mach das du weg kommst!</h2>
+        <a href="detail.jsp">Hier gehts zur Detailansicht </a>
     </body>
 </html>
