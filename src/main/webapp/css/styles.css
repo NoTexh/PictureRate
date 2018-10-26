@@ -28,21 +28,6 @@ header img{
     float: left;
 }
 
-nav {
-    margin: 0 60px 0 0;
-    float: right;
-    line-height: 70px;
-}
-
-footer {
-   
-}
-
-main {
-    margin-top: 20px;
-    border: 2px solid hotpink;
-}
-
 .suchleiste{
     float: right;
     padding: 3px 10px 0 0;
