@@ -13,9 +13,14 @@
 
     <body>
         <header>
-            <a href="${pageContext.request.contextPath}"><img src="./res/101_0.jpg" alt="home"/> </a>
-            <a href="${pageContext.request.contextPath}\upload.jsp"><img src="./res/arrow.png" alt="upload"/> </a>
+            <a href="/picturerate"><img src="./res/101_0.jpg" alt="home"/> </a>
+            <a href="/picturerate/uploadinput"><img src="./res/arrow.png" alt="upload"/> </a>
             Welcome to PictureRate
+            <div class="suchleiste">
+                <form action="image/*" method="GET">
+                    <input class="suchleiste-input" type="text" placeholder="Bild suchen...">
+                </form>
+            </div>
         </header>
 
         <form action="uploaddata" method="post" enctype="multipart/form-data">
@@ -44,7 +49,6 @@
                         <td style="width: 50%;"><input class="file-upload-submit" type="reset" value="Reset"></td>
                     </tr>
                 </table>
-
             </div>
         </form>
     </body>
