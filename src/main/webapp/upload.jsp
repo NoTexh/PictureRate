@@ -60,7 +60,7 @@
                         }else if(errorMessage == "ErrorPicture"){
                             out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Picture is missing</div></td></tr>");
                         }else if(errorMessage == "Sucess"){
-                            out.println("<tr><td colspan=\"2\"><div class=\"alert alert-sucess\" role=\"alert\">Sucessfully uploaded</div></td></tr>");
+                            out.println("<tr><td colspan=\"2\"><div class=\"alert alert-success\" role=\"alert\">Sucessfully uploaded</div></td></tr>");
                         }
                     %>
                 </table>
