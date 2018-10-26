@@ -1,3 +1,4 @@
+<%@page import="de.dhbw.karlsruhe.picturerate.DetailSideCall"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,11 +24,30 @@
         <form action="calldetailside" method="post">
             
             <!-- Bild Infos -->
-            <!-- Name, Bewertungssystem, geg. Favorit-->
-            <h1><%=request.getParameter("name")%></h1>
+            <h1>
+                <%DetailSideCall dsc = new DetailSideCall();
+                out.println(dsc.test(request.getParameter("id")));
+                %>
+            </h1>
             <div style="text-align: center">
                 <img src="http://localhost:8080/picturerate/picture/<%=request.getParameter("id")%>" style="border: 5px black solid">
             </div>
+            
+            <!-- Bewertungsfunktionen 
+            <div>
+                <table class="bewertungssystem">
+                    <colgroup span="5" width="20%"></colgroup>
+                    <tr>
+                        <td><button><i class="fas fa-heart"></i></button></td>
+                        <td><button>Upvote (Daumen Hoch/Klatschen)</button></td>
+                        <td><button>Favorit (Stern)</button></td>
+                        <td><button>Downvote (Daumen Runter)</button></td>
+                        <td><button>TopDownvote (Kackhaufen)</button></td>
+                    </tr>
+                </table>
+            </div>
+            -->
+            
 
             <hr noshade="noshade">
 

@@ -23,8 +23,8 @@
         <h1>What?!</h1>
         <h2>du hast dich wohl verirrt?
         mach das du weg kommst!</h2>
-        <a href="/picturerate/detailaufruf?id=1&name=Mein Penis">Hier gehts zur Detailansicht Bild 1</a>
-        <a href="/picturerate/detailaufruf?id=2&name=I would be lost either way">Hier gehts zur Detailansicht Bild 2</a>
-        <a href="detail.jsp">Hier gehts zur Detailansicht Bild 2</a>
+        <a href="/picturerate/detailaufruf?id=1">Hier gehts zur Detailansicht Bild 1</a>
+        <a href="/picturerate/detailaufruf?id=2">Hier gehts zur Detailansicht Bild 2</a>
+        <a href="detail.jsp?id=3">Hier gehts zur Detailansicht Bild 2</a>
     </body>
 </html>

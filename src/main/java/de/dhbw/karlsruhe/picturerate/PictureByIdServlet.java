@@ -27,7 +27,7 @@ public class PictureByIdServlet extends HttpServlet {
     MysqlDataSource dataSource;
     PrintWriter out;
     private static final String SQL_PICTURE_BY_ID = "SELECT data FROM picture WHERE idpicture = ?";
-
+   
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         dataSource = DbConnection.getDataSource();
