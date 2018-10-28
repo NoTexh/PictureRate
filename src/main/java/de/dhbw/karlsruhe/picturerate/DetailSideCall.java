@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,15 +57,6 @@ public class DetailSideCall extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */    
     
     /* Methode für Datenbankabfrage und Namensausgabe in detail.jsp*/
     MysqlDataSource detailtest;
@@ -93,14 +86,13 @@ public class DetailSideCall extends HttpServlet {
     /* Variablen für Kommentarausgabe*/
     public String [] [] comments;
     private String SQL_Com = "select * from kommentare WHERE idpicture = ";
-    
+    int laenge = 0;
     
     public int getcomments() throws ServletException {
 
         detailtest = DbConnection.getDataSource();
         int i = 0;
         SQL_Com = SQL_Com + imgid;
-        int laenge = 0;
      
         try(Connection connection = detailtest.getConnection();
                 PreparedStatement statement = connection.prepareStatement(SQL_Com)) {
@@ -127,10 +119,39 @@ public class DetailSideCall extends HttpServlet {
             throw new ServletException("Whoopsi! Etwas ist schief gelaufen!");
         }
     }
+    
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);         
+ 
+        String comid = request.getParameter("comid");
+        String test1 = request.getParameter("comment");
+        imgid = request.getParameter("id");
+        String SQL_INSERT = "insert into kommentare values(" + imgid + ", " + comid + ", \""+ test1 + "\")";
+        
+        MysqlDataSource ds = DbConnection.getDataSource();
+        try (Connection connection = ds.getConnection();
+                PreparedStatement statement = connection.prepareStatement(SQL_INSERT)) {
+            try {
+                           statement.executeUpdate(); 
+            } catch (SQLException f) {
+                throw new ServletException(SQL_INSERT);
+            }
+
+            
+        } catch (SQLException ex) {
+            throw new ServletException("Whoopsi Db Verbindung hat nicht geklappt!");
+        }
+        request.getRequestDispatcher("/detail.jsp").forward(request, response);
     }
 
     /**
@@ -144,8 +165,8 @@ public class DetailSideCall extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);           
+            throws ServletException, IOException {  
+        processRequest(request, response);         
     }
 
     /**

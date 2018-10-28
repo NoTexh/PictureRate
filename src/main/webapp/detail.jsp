@@ -61,15 +61,19 @@
 
             <!-- Kommentarfunktion -->
             <div>
-                <table class="kommentarschreiben">
-                    <tr>
-                        <td align="left" style="font-size: 19px">Verfassen Sie hier Ihren eigenen Kommentar:</td>
-                        <td><button class="btn_post" >Post</button></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="text" class="txt_eingabe" placeholder="Kommentar einfügen"></td>
-                    </tr>
-                </table>
+                <form action="calldetail" method="GET" enctype="multipart/form-data">
+                    <table class="kommentarschreiben">
+                        <tr>
+                            <td align="left" style="font-size: 19px">Verfassen Sie hier Ihren eigenen Kommentar:</td>
+                            <td><input class="btn_post" type="submit" value="Post"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="text" id="comment" name ="comment" class="txt_eingabe" placeholder="Kommentar einfügen"></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="id" value="<%out.println(request.getParameter("id"));%>">
+                    <input type="hidden" name="comid" value="<% int laenge = dsc.getcomments(); out.println(laenge+1);%>">
+                </form>
             </div>
 
             <hr noshade="noshade">
@@ -79,11 +83,10 @@
                 <table width="100%" border="2px black">
                     <caption>Kommentare</caption>
                     <%
-                        int laenge = dsc.getcomments();
                         for (int i = 0; i < laenge; i++) {
                             out.println("<tr>");
                             out.println("<td align=\"center\">" + dsc.comments [i] [0] + "</td>");
-                            out.println("<td align=\"left\" margin=\"5px\">" + dsc.comments [i] [1] + "</td>");
+                            out.println("<td align=\"left\" style=\"padding: 5px\">" + dsc.comments [i] [1] + "</td>");
                             out.println("</tr>");
                         }
                     %>
