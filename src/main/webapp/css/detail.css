@@ -30,8 +30,33 @@ input {
     width: 100%;
 }
 
-button {
+.btn_post {
     width: 100%;
+    color: #fff;
+    background: #808080;
+    border: 2px solid black;
+    border-radius: 4px;
+    transition: all .2s ease;
+    outline: none;
+    font-weight: 700;
+}
+
+.btn_post:hover {
+    background: #606060;
+    color: #ffffff;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+
+.btn_post:active {
+    border: 0;
+    transition: all .2s ease;
+}
+
+.txt_eingabe {
+    margin: 5px;
+    box-sizing: border-box;
+    padding: 5px;
 }
 
 caption {
