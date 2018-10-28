@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Picture Rate</title>
         <link rel="stylesheet" href="./css/styles.css">
-        
+        <link rel="stylesheet" href="./css/index.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
     </head>
     <body>
@@ -27,11 +27,10 @@
             <%
             PicturesFromDB pics = new PicturesFromDB();
             int anzBilder = pics.getAnzBilder();
-            for(int i = 0; i<anzBilder; i++){
-                int id = i+1;
+            for(int i = 0; i<anzBilder; i++) {
                 out.write("<fieldset>");
-                out.write("<legend align='left'>title</legend>");
-                out.write("<a href='/picturerate/detailaufruf?id="+id+"'> <img src='http://localhost:8080/picturerate/picture/"+id+"' class='bilder' alt='pic'> </a>");
+                out.write("<legend align='left'>"+ pics.bilderListe[i][1] +"</legend>");
+                out.write("<a href='/picturerate/detailaufruf?id="+ pics.bilderListe[i][0] +"'> <img src='http://localhost:8080/picturerate/picture/"+pics.bilderListe[i][0]+"' class='bilder' alt='pic'> </a>");
                 out.write("</fieldset>");
             }
             %>

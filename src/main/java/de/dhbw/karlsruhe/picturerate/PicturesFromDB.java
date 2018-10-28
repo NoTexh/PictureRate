@@ -55,22 +55,32 @@ public class PicturesFromDB extends HttpServlet {
 
     //Methode um Anzahl Bilder aus der DB zu bekommen
     MysqlDataSource picturetest;
-    private String anzBilderSQL = "SELECT COUNT(*) as ANZ FROM picture ";
-    public int anzBilder;
+    private String anzBilderSQL = "SELECT idpicture, name FROM picture ";
+    public String[][] bilderListe;
     public int getAnzBilder () throws ServletException {
         picturetest = DbConnection.getDataSource();
-        anzBilder = 0;
+        int anzBilder = 0;
         
           try(Connection connection = picturetest.getConnection();
                 PreparedStatement statement = connection.prepareStatement(anzBilderSQL)) {
               
-            /*Daten aus dem ResultSet auslesen*/
+            /*Anzahl Bilder auslesen*/
             try (ResultSet rs = statement.executeQuery()) {
-                String anzahl ="";
-                while(rs.next())
-                anzahl = rs.getString("ANZ");
-                anzBilder = Integer.parseInt(anzahl);
-            } 
+                    while (rs.next()) {
+                        anzBilder++;
+                    }
+                }
+            try (ResultSet rs = statement.executeQuery()) {
+                bilderListe = new String [anzBilder] [2];
+               int i = 0;
+                while(rs.next()) {
+                    bilderListe [i][0] = new String();
+                    bilderListe [i][0] = rs.getString("idpicture");
+                    bilderListe [i][1] = new String();
+                    bilderListe [i][1] = rs.getString("name");
+                    i++;  
+                } 
+            }
           } catch (SQLException ex) {
             throw new ServletException("Whoopsi! Etwas ist schief gelaufen!");
         }
