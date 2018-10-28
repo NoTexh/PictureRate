@@ -7,12 +7,27 @@ html{
     background-size: cover;
     background-repeat: no-repeat;
 }
-body{
-    
+main{
+ 
+   
 }
-
-.index-header-icon{
-    
+main .bilder{
+    box-sizing: border-box;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basic: calc(50% - 0.2em);
+    width: 300px;
+    height: 300px;
+   
+}
+main > legend{
+    font-weight: bold;
+    font-size: 16px;
+}
+fieldset{
+    border: 2px solid black;
+    width: auto;
+    display: inline-block;
 }
 
 header {

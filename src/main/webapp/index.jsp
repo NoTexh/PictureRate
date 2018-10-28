@@ -1,3 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="de.dhbw.karlsruhe.picturerate.DetailSideCall"%>
+<%@page import="de.dhbw.karlsruhe.picturerate.PicturesFromDB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,11 +23,18 @@
                 </form>
             </div>
         </header>
-        <h1>What?!</h1>
-        <h2>du hast dich wohl verirrt?
-        mach das du weg kommst!</h2>
-        <a href="/picturerate/detailaufruf?id=1">Hier gehts zur Detailansicht Bild 1</a>
-        <a href="/picturerate/detailaufruf?id=2">Hier gehts zur Detailansicht Bild 2</a>
-        <a href="detail.jsp?id=3">Hier gehts zur Detailansicht Bild 2</a>
+        <main>
+            <%
+            PicturesFromDB pics = new PicturesFromDB();
+            int anzBilder = pics.getAnzBilder();
+            for(int i = 0; i<anzBilder; i++){
+                int id = i+1;
+                out.write("<fieldset>");
+                out.write("<legend align='left'>title</legend>");
+                out.write("<a href='/picturerate/detailaufruf?id="+id+"'> <img src='http://localhost:8080/picturerate/picture/"+id+"' class='bilder' alt='pic'> </a>");
+                out.write("</fieldset>");
+            }
+            %>
+        </main>
     </body>
 </html>
