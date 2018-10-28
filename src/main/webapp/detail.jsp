@@ -22,29 +22,26 @@
             </div>
         </header>
         
+        <main>
         
-        <!-- imgid aus URL an Servlet übergeben & Servlet Klasse instanzieren für Methodenaufruf -->
-        <%
-          DetailSideCall dsc = new DetailSideCall();
-          dsc.getimgid(request.getParameter("id"));
-        %>
-        
-        <!--<form action="calldetailside" method="post">
-            
-            
-            
-             Bild Name aus Datenbank abfragen -->
+            <!-- imgid aus URL an Servlet übergeben & Servlet Klasse instanzieren für Methodenaufruf -->
+            <%
+              DetailSideCall dsc = new DetailSideCall();
+              dsc.getimgid(request.getParameter("id"));
+            %>
+
+                 <!-- Bild Name aus Datenbank abfragen -->
             <h1>
                 <%
                 out.println(dsc.test());
                 %>
             </h1>
-            
+
             <!-- Bild Infos -->
             <div style="text-align: center">
                 <img src="http://localhost:8080/picturerate/picture/<%=request.getParameter("id")%>" style="border: 5px black solid">
             </div>
-            
+
             <!-- Bewertungsfunktionen -->
             <div>
                 <table class="bewertungssystem">
@@ -58,7 +55,7 @@
                     </tr>
                 </table>
             </div>
-            
+
 
             <hr noshade="noshade">
 
@@ -76,21 +73,22 @@
             </div>
 
             <hr noshade="noshade">
-            
+
             <!-- Kommentare ausgeben -->
-            <%
-                /*dsc.getcomments();
-                for (int i = 0; i< 5; i++) {
-                    out.println("<h1>" + dsc.comments[0] + "</h1>");
-                
-                /*while(rs.next()) {
-                    out.println("<h1>" + rs.getString(2) + "</h1>");
-                    out.println("<h1>" + rs.getString(3) + "</h1>");
-                }*/
-            %>
-            
-            
-            
-         
+            <div>
+                <table width="100%" border="2px black">
+                    <caption>Kommentare</caption>
+                    <%
+                        int laenge = dsc.getcomments();
+                        for (int i = 0; i < laenge; i++) {
+                            out.println("<tr>");
+                            out.println("<td align=\"center\">" + dsc.comments [i] [0] + "</td>");
+                            out.println("<td align=\"left\" margin=\"5px\">" + dsc.comments [i] [1] + "</td>");
+                            out.println("</tr>");
+                        }
+                    %>
+                </table>
+            </div>
+        </main>
     </body>
 </html>

@@ -6,7 +6,7 @@ h1 {
     text-align: center;
 }
 
-div {
+main > div {
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 10px;
@@ -32,4 +32,9 @@ input {
 
 button {
     width: 100%;
+}
+
+caption {
+    margin-bottom: 10px;
+    font-size: 25px;
 }

@@ -91,25 +91,37 @@ public class DetailSideCall extends HttpServlet {
     }
     
     /* Variablen für Kommentarausgabe*/
-    public String [] comments;
+    public String [] [] comments;
     private String SQL_Com = "select * from kommentare WHERE idpicture = ";
     
     
-    public void getcomments() throws ServletException {
+    public int getcomments() throws ServletException {
 
         detailtest = DbConnection.getDataSource();
         int i = 0;
         SQL_Com = SQL_Com + imgid;
-        
+        int laenge = 0;
+     
         try(Connection connection = detailtest.getConnection();
                 PreparedStatement statement = connection.prepareStatement(SQL_Com)) {
             
+            /*Länge des ResultSets auslesen*/
             try (ResultSet rs = statement.executeQuery()) {
-                while(rs.next()) {
-                    comments [i] = new String();
-                    comments [i] = rs.getString(3);
-                    i++;
+                    while (rs.next()) {
+                        laenge++;
+                    }
                 }
+            /*Daten aus dem ResultSet auslesen*/
+            try (ResultSet rs = statement.executeQuery()) {
+                comments = new String [laenge] [2];
+                while(rs.next()) {
+                    comments [i] [0] = new String();
+                    comments [i] [0] = rs.getString("idkommentar");
+                    comments [i] [1] = new String();
+                    comments [i] [1] = rs.getString("kommentar");
+                    i++;                     
+                }
+                return laenge;
             }
         } catch (SQLException ex) {
             throw new ServletException("Whoopsi! Etwas ist schief gelaufen!");
