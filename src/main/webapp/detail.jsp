@@ -1,3 +1,4 @@
+<%@page import="java.sql.ResultSet"%>
 <%@page import="de.dhbw.karlsruhe.picturerate.DetailSideCall"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,19 +22,30 @@
             </div>
         </header>
         
-        <form action="calldetailside" method="post">
+        
+        <!-- imgid aus URL an Servlet übergeben & Servlet Klasse instanzieren für Methodenaufruf -->
+        <%
+          DetailSideCall dsc = new DetailSideCall();
+          dsc.getimgid(request.getParameter("id"));
+        %>
+        
+        <!--<form action="calldetailside" method="post">
             
-            <!-- Bild Infos -->
+            
+            
+             Bild Name aus Datenbank abfragen -->
             <h1>
-                <%DetailSideCall dsc = new DetailSideCall();
-                out.println(dsc.test(request.getParameter("id")));
+                <%
+                out.println(dsc.test());
                 %>
             </h1>
+            
+            <!-- Bild Infos -->
             <div style="text-align: center">
                 <img src="http://localhost:8080/picturerate/picture/<%=request.getParameter("id")%>" style="border: 5px black solid">
             </div>
             
-            <!-- Bewertungsfunktionen 
+            <!-- Bewertungsfunktionen -->
             <div>
                 <table class="bewertungssystem">
                     <colgroup span="5" width="20%"></colgroup>
@@ -46,7 +58,6 @@
                     </tr>
                 </table>
             </div>
-            -->
             
 
             <hr noshade="noshade">
@@ -66,6 +77,20 @@
 
             <hr noshade="noshade">
             
-        </form>
+            <!-- Kommentare ausgeben -->
+            <%
+                /*dsc.getcomments();
+                for (int i = 0; i< 5; i++) {
+                    out.println("<h1>" + dsc.comments[0] + "</h1>");
+                
+                /*while(rs.next()) {
+                    out.println("<h1>" + rs.getString(2) + "</h1>");
+                    out.println("<h1>" + rs.getString(3) + "</h1>");
+                }*/
+            %>
+            
+            
+            
+         
     </body>
 </html>

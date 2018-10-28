@@ -21,6 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "DetailSideCall", urlPatterns = {"/calldetail"})
 public class DetailSideCall extends HttpServlet {
+   
+    /* Img ID aus jsp auslesen und im Servlet speichern für div. Datenbankabfragen*/
+    String imgid;
+    
+    public void getimgid(String imgid) {
+        this.imgid = imgid;
+    }
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,36 +63,62 @@ public class DetailSideCall extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+     */    
     
+    /* Methode für Datenbankabfrage und Namensausgabe in detail.jsp*/
     MysqlDataSource detailtest;
     private String SQL_PICTURE_BY_ID = "SELECT name FROM picture WHERE idpicture = ";
 
-    public String test(String imgid) throws ServletException {
+    public String test() throws ServletException {
         detailtest = DbConnection.getDataSource();
-            String imgname = "Kein Name gefunden";
-            SQL_PICTURE_BY_ID = SQL_PICTURE_BY_ID + imgid;
-            
-            try (Connection connection = detailtest.getConnection();
-                    PreparedStatement statement = connection.prepareStatement(SQL_PICTURE_BY_ID)) {
-                
-                try (ResultSet rs = statement.executeQuery()) {
-                    while(rs.next()) {
-                        imgname = rs.getString("name");
-                    }
+        String imgname = "Kein Name gefunden";
+        SQL_PICTURE_BY_ID = SQL_PICTURE_BY_ID + imgid;
+
+        try (Connection connection = detailtest.getConnection();
+                PreparedStatement statement = connection.prepareStatement(SQL_PICTURE_BY_ID)) {
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while(rs.next()) {
+                    imgname = rs.getString("name");
                 }
-                return imgname;
-                
-            } catch (SQLException ex) {
+            }
+            return imgname;
+
+        } catch (SQLException ex) {
                 throw new ServletException("Abfrage ist schief gelaufen!");
         }
             
     }
     
+    /* Variablen für Kommentarausgabe*/
+    public String [] comments;
+    private String SQL_Com = "select * from kommentare WHERE idpicture = ";
+    
+    
+    public void getcomments() throws ServletException {
+
+        detailtest = DbConnection.getDataSource();
+        int i = 0;
+        SQL_Com = SQL_Com + imgid;
+        
+        try(Connection connection = detailtest.getConnection();
+                PreparedStatement statement = connection.prepareStatement(SQL_Com)) {
+            
+            try (ResultSet rs = statement.executeQuery()) {
+                while(rs.next()) {
+                    comments [i] = new String();
+                    comments [i] = rs.getString(3);
+                    i++;
+                }
+            }
+        } catch (SQLException ex) {
+            throw new ServletException("Whoopsi! Etwas ist schief gelaufen!");
+        }
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);            
+        processRequest(request, response);         
     }
 
     /**
@@ -96,12 +129,11 @@ public class DetailSideCall extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-        
+        processRequest(request, response);           
     }
 
     /**
