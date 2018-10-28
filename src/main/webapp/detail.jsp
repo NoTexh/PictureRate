@@ -56,18 +56,18 @@
                 </table>
             </div>
 
-
+            
             <hr noshade="noshade">
 
             <!-- Kommentarfunktion -->
             <div>
                 <table class="kommentarschreiben">
                     <tr>
-                        <td align="left">Verfassen Sie hier Ihren eigenen Kommentar:</td>
-                        <td><button>Post</button></td>
+                        <td align="left" style="font-size: 19px">Verfassen Sie hier Ihren eigenen Kommentar:</td>
+                        <td><button class="btn_post" >Post</button></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="text"></td>
+                        <td colspan="2"><input type="text" class="txt_eingabe" placeholder="Kommentar einfügen"></td>
                     </tr>
                 </table>
             </div>
