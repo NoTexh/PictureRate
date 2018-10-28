@@ -98,10 +98,61 @@ public class PicturesFromDB extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
+            throws ServletException, IOException 
+    {
+       picturetest = DbConnection.getDataSource();
+       String begriff = request.getParameter("suche");
+       int anzBilder = 0;
+       try(Connection connection = picturetest.getConnection();
+                PreparedStatement statement = connection.prepareStatement(anzBilderSQL)) {
+              
+            /*Anzahl Bilder auslesen*/
+            try (ResultSet rs = statement.executeQuery()) {
+                    while (rs.next()) {
+                        anzBilder++;
+                    }
+                }
+            try (ResultSet rs = statement.executeQuery()) {
+                bilderListe = new String [anzBilder] [2];
+               int i = 0;
+                while(rs.next()) {
+                    bilderListe [i][0] = new String();
+                    bilderListe [i][0] = rs.getString("idpicture");
+                    bilderListe [i][1] = new String();
+                    bilderListe [i][1] = rs.getString("name");
+                    i++;  
+                } 
+            }
+          } catch (SQLException ex) {
+            throw new ServletException("Whoopsi! Etwas ist schief gelaufen!");
+        }
+       begriff = begriff.toLowerCase();
+       for(int i = 0; i<anzBilder; i++){
+           String titel = bilderListe[i][1];
+           titel = titel.toLowerCase();
+           if(titel.equals(begriff)){
+               String id = bilderListe[i][0];
+               String zielUrl = "/detailaufruf?id="+id;
+               request.getRequestDispatcher(zielUrl).forward(request, response);
+           }
+           if(i>=anzBilder){
+                   for(int j = 0; j < anzBilder; j++){
+                       titel = bilderListe[j][1];
+                       titel = titel.toLowerCase();
+                       if(titel.contains(begriff)){
+                           String id = bilderListe[j][0];
+                           String zielUrl = "/detailaufruf?id="+id;
+                           request.getRequestDispatcher(zielUrl).forward(request, response);
+                       }
+                   }
+               }
+               else{
+                   
+               }}
+       }
+    
+       
+       
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -126,4 +177,4 @@ public class PicturesFromDB extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-}
+           }

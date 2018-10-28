@@ -19,8 +19,8 @@
             <a href="/picturerate/uploadinput"><i class="fas fa-upload"></i></a>
             Welcome to PictureRate
             <div class="suchleiste">
-                <form action="image/*" method="GET">
-                    <input class="suchleiste-input" type="text" placeholder="Bild suchen...">
+                <form action="PicturesFromDB" method="GET">
+                    <input class="suchleiste-input" type="text" name="suche" placeholder="Bild suchen...">
                 </form>
             </div>
         </header>
