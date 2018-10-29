@@ -27,10 +27,15 @@ header > a{
     height: 70px;
     float: left;
 }
+header > div{
+    float: right;
+    position: relative;
+}
 
 .suchleiste{
-    float: right;
     padding: 3px 10px 0 0;
+    z-index: 1;
+    position: absolute;
 }
 
 .suchleiste-input{

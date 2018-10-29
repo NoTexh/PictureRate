@@ -1,18 +1,20 @@
 html{
     
 }
+body{
+}
 main{
     justify-content: flex-start;
     flex-wrap: wrap;
     display: flex;
-    align-items: center
+    align-items: center;
 }
+
 main .bilder{
     align-items: center;
     box-sizing: border-box;
     flex-grow: 1;
     flex-shrink: 0;
-    flex-basic: calc(50% - 0.2em);
     width: 300px;
     height: 300px;
    
@@ -27,4 +29,20 @@ fieldset{
     display: inline-block;
     margin: 15px;
 }
+.alert {
+  float: right;
+  margin: 20px;
+  font-size: 16px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  height: 20px;
+  width: 100px;
+  z-index: 2;
+  position: absolute;
+}
 
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
