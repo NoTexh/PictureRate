@@ -81,7 +81,7 @@ public class DetailSideCall extends HttpServlet {
 
     /* Variablen für Kommentarausgabe*/
     public String[][] comments;
-    private String SQL_Com = "select * from kommentare WHERE idpicture = ";
+    private String SQL_Com = "select datediff(now(), uploaddate) as datedif, timediff(now(), uploaddate) as timedif, kommentar from kommentare where idpicture = ";
     int laenge = 0;
 
     public int getcomments() throws ServletException {
@@ -104,7 +104,26 @@ public class DetailSideCall extends HttpServlet {
                 comments = new String[laenge][2];
                 while (rs.next()) {
                     comments[i][0] = new String();
-                    comments[i][0] = rs.getString("idkommentar");
+                    
+                    String date = rs.getString("datedif");
+                    String time = rs.getString("timedif");
+                    int tag = Integer.parseInt(date);
+                    int stunde = Integer.parseInt(time.substring(0 ,2));
+                    int minute = Integer.parseInt(time.substring(3, 5));
+                    int sekunde = Integer.parseInt(time.substring(6, 8));
+                    
+                    if (tag != 0) {
+                        comments [i] [0]  = "Vor: " + tag + " Tagen";
+                    } else if (stunde != 0) {
+                        comments [i] [0] = "Vor: " + stunde + " Stunden";
+                    } else if (minute != 0) {
+                        comments [i] [0] = "Vor: " + minute + " Minuten";
+                    } else {
+                        comments [i] [0] = "Vor: " + sekunde + " Sekunden";
+                    }
+                    
+ //                   comments [i] [0] = "Tage:" + tag + "Stunde:" + stunde + "Minute:" + minute + "Sekunde:" + sekunde + "/";
+                    
                     comments[i][1] = new String();
                     comments[i][1] = rs.getString("kommentar");
                     i++;
@@ -131,7 +150,7 @@ public class DetailSideCall extends HttpServlet {
         String comid = request.getParameter("comid");
         String test1 = request.getParameter("comment");
         imgid = request.getParameter("id");
-        String SQL_INSERT = "insert into kommentare values(" + imgid + ", " + comid + ", \"" + test1 + "\")";
+        String SQL_INSERT = "insert into kommentare values(" + imgid + ", " + comid + ", \"" + test1 + "\", NOW())";
 
         MysqlDataSource ds = DbConnection.getDataSource();
         try (Connection connection = ds.getConnection();

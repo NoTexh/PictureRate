@@ -85,7 +85,7 @@
                     <%
                         for (int i = 0; i < laenge; i++) {
                             out.println("<tr>");
-                            out.println("<td align=\"center\">" + dsc.comments [i] [0] + "</td>");
+                            out.println("<td align=\"center\" style=\"width: 30%\">" + dsc.comments [i] [0] + "</td>");
                             out.println("<td align=\"left\" style=\"padding: 5px\">" + dsc.comments [i] [1] + "</td>");
                             out.println("</tr>");
                         }
