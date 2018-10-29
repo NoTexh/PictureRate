@@ -44,7 +44,7 @@ public class PicturesFromDB extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PicturesFromDB</title>");            
+            out.println("<title>Servlet PicturesFromDB</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet PicturesFromDB at " + request.getContextPath() + "</h1>");
@@ -57,36 +57,37 @@ public class PicturesFromDB extends HttpServlet {
     MysqlDataSource picturetest;
     private String anzBilderSQL = "SELECT idpicture, name FROM picture ";
     public String[][] bilderListe;
-    public int getAnzBilder () throws ServletException {
+
+    public int getAnzBilder() throws ServletException {
         picturetest = DbConnection.getDataSource();
         int anzBilder = 0;
-        
-          try(Connection connection = picturetest.getConnection();
+
+        try (Connection connection = picturetest.getConnection();
                 PreparedStatement statement = connection.prepareStatement(anzBilderSQL)) {
-              
+
             /*Anzahl Bilder auslesen*/
             try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        anzBilder++;
-                    }
+                while (rs.next()) {
+                    anzBilder++;
                 }
-            try (ResultSet rs = statement.executeQuery()) {
-                bilderListe = new String [anzBilder] [2];
-               int i = 0;
-                while(rs.next()) {
-                    bilderListe [i][0] = new String();
-                    bilderListe [i][0] = rs.getString("idpicture");
-                    bilderListe [i][1] = new String();
-                    bilderListe [i][1] = rs.getString("name");
-                    i++;  
-                } 
             }
-          } catch (SQLException ex) {
+            try (ResultSet rs = statement.executeQuery()) {
+                bilderListe = new String[anzBilder][2];
+                int i = 0;
+                while (rs.next()) {
+                    bilderListe[i][0] = new String();
+                    bilderListe[i][0] = rs.getString("idpicture");
+                    bilderListe[i][1] = new String();
+                    bilderListe[i][1] = rs.getString("name");
+                    i++;
+                }
+            }
+        } catch (SQLException ex) {
             throw new ServletException("Whoopsi! Etwas ist schief gelaufen!");
         }
         return anzBilder;
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -98,61 +99,63 @@ public class PicturesFromDB extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
-       picturetest = DbConnection.getDataSource();
-       String begriff = request.getParameter("suche");
-       int anzBilder = 0;
-       try(Connection connection = picturetest.getConnection();
+            throws ServletException, IOException {
+        picturetest = DbConnection.getDataSource();
+        String begriff = request.getParameter("suche");
+        int anzBilder = 0;
+        try (Connection connection = picturetest.getConnection();
                 PreparedStatement statement = connection.prepareStatement(anzBilderSQL)) {
-              
+
             /*Anzahl Bilder auslesen*/
             try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        anzBilder++;
-                    }
+                while (rs.next()) {
+                    anzBilder++;
                 }
-            try (ResultSet rs = statement.executeQuery()) {
-                bilderListe = new String [anzBilder] [2];
-               int i = 0;
-                while(rs.next()) {
-                    bilderListe [i][0] = new String();
-                    bilderListe [i][0] = rs.getString("idpicture");
-                    bilderListe [i][1] = new String();
-                    bilderListe [i][1] = rs.getString("name");
-                    i++;  
-                } 
             }
-          } catch (SQLException ex) {
+            try (ResultSet rs = statement.executeQuery()) {
+                bilderListe = new String[anzBilder][2];
+                int i = 0;
+                while (rs.next()) {
+                    bilderListe[i][0] = new String();
+                    bilderListe[i][0] = rs.getString("idpicture");
+                    bilderListe[i][1] = new String();
+                    bilderListe[i][1] = rs.getString("name");
+                    i++;
+                }
+            }
+        } catch (SQLException ex) {
             throw new ServletException("Whoopsi! Etwas ist schief gelaufen!");
         }
-       begriff = begriff.toLowerCase();
-       for(int i = 0; i<anzBilder; i++){
-           String titel = bilderListe[i][1];
-           titel = titel.toLowerCase();
-           if(titel.equals(begriff)){
-               String id = bilderListe[i][0];
-               String zielUrl = "/detailaufruf?id="+id;
-               request.getRequestDispatcher(zielUrl).forward(request, response);
-           }
-           if(i>=anzBilder){
-                   for(int j = 0; j < anzBilder; j++){
-                       titel = bilderListe[j][1];
-                       titel = titel.toLowerCase();
-                       if(titel.contains(begriff)){
-                           String id = bilderListe[j][0];
-                           String zielUrl = "/detailaufruf?id="+id;
-                           request.getRequestDispatcher(zielUrl).forward(request, response);
-                       }
-                   }
-               }
-               else{
-                   
-               }}
-       }
-    
-       
-       
+        begriff = begriff.toLowerCase();
+        boolean treffer = false;
+        for (int i = 0; i < anzBilder; i++) {
+            String titel = bilderListe[i][1];
+            titel = titel.toLowerCase();
+            if (titel.equals(begriff)) {
+                String id = bilderListe[i][0];
+                String zielUrl = "/detailaufruf?id=" + id;
+                treffer = true;
+                request.getRequestDispatcher(zielUrl).forward(request, response);
+            }
+        }
+        if (!treffer) {
+            for (int j = 0; j < anzBilder; j++) {
+                String titel = bilderListe[j][1];
+                titel = titel.toLowerCase();
+                if (titel.contains(begriff)) {
+                    String id = bilderListe[j][0];
+                    String zielUrl = "/detailaufruf?id=" + id;
+                    request.getRequestDispatcher(zielUrl).forward(request, response);
+                }
+            }
+        }
+        if (!treffer) {
+            request.setAttribute("error", "noMatch");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -162,9 +165,15 @@ public class PicturesFromDB extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+            IOException {
+        processRequest(request,
+                response
+        );
+
     }
 
     /**
@@ -173,8 +182,9 @@ public class PicturesFromDB extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String
+            getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
-           }
+}
