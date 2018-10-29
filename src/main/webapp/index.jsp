@@ -16,17 +16,17 @@
             <a href="/picturerate"> <i class="fas fa-home"></i></a>
             <a href="/picturerate/uploadinput"><i class="fas fa-upload"></i></a>
             Welcome to PictureRate
+            <div class="suchleiste">
+                <form action="PicturesFromDB" method="GET">
+                    <input class="suchleiste-input" type="text" name="suche" placeholder="Bild suchen...">
+                </form>
+            </div>
             <%
                 String errorMessage = (String) request.getAttribute("error");
                 if (errorMessage == "noMatch") {
                     out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Kein Treffer!</div></td></tr>");
                 }
             %>
-            <div class="suchleiste">
-                <form action="PicturesFromDB" method="GET">
-                    <input class="suchleiste-input" type="text" name="suche" placeholder="Bild suchen...">
-                </form>
-            </div>
         </header>
         <main>
             <%
