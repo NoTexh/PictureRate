@@ -52,7 +52,9 @@
 
                         <%
                             String message = (String) request.getAttribute("message");
-                            if (message == "ErrorBoth") {
+                            if (message == "NoPictureFormat") {
+                                out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">No Picture Input!</div></td></tr>");
+                            }else if (message == "ErrorBoth") {
                                 out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Picturename and Picture are missing</div></td></tr>");
                             } else if (message == "ErrorName") {
                                 out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Picturename is missing</div></td></tr>");

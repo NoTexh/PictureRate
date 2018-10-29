@@ -20,16 +20,15 @@ import javax.servlet.http.Part;
 public class UploadServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String SQL_UPLOAD = "INSERT INTO picture(data, name, uploaddate) VALUES (?,?,NOW())";
         PrintWriter out = response.getWriter();
-        int result = 0;
-
         Part part = request.getPart("image");
-        String name = request.getParameter("name");
-
         MysqlDataSource dataSource = DbConnection.getDataSource();
-        getUploadMessage(request, response, part, name);
+        
+        String SQL_UPLOAD = "INSERT INTO picture(data, name, uploaddate) VALUES (?,?,NOW())";
+        String name = request.getParameter("name");
+        int result = 0;
+        
+        if(validateUploadInput(request, response, part, name)){
 
             try (Connection connection = dataSource.getConnection();
                     PreparedStatement statement = connection.prepareStatement(SQL_UPLOAD)) {
@@ -52,19 +51,44 @@ public class UploadServlet extends HttpServlet {
                 out.println(e);
             }
         }
+    }
     
-    
-    private void getUploadMessage(HttpServletRequest request, HttpServletResponse response, Part part, String name) throws IOException, ServletException{
-        if (isPartEmpty(part) && isStringEmpty(name)) {
+    private boolean validateUploadInput(HttpServletRequest request, HttpServletResponse response, Part part, String name) throws IOException, ServletException{
+        boolean success = true;
+        if(!validateImageFormat(part.getContentType())){
+            success = false;
+            request.setAttribute("message", "NoPictureFormat");
+            request.getRequestDispatcher("/upload.jsp").forward(request, response);
+        }else if (isPartEmpty(part) && isStringEmpty(name)) {
+            success = false;
             request.setAttribute("message", "ErrorBoth");
             request.getRequestDispatcher("/upload.jsp").forward(request, response);
         }else if(isStringEmpty(name)){
+            success = false;
             request.setAttribute("message", "ErrorName");
             request.getRequestDispatcher("/upload.jsp").forward(request, response);
         }else if(isPartEmpty(part)){
+            success = false;
             request.setAttribute("message", "ErrorPicture");
             request.getRequestDispatcher("/upload.jsp").forward(request, response);
         } 
+        return success;
+    }
+    
+    private boolean validateImageFormat(String string){
+        boolean isValid = false;
+        switch(string){
+            case "image/png":
+                isValid = true;
+                break;
+            case "image/jpg":
+                isValid = true;
+                break;
+            case "image/jpeg":
+                isValid = true;
+                break;
+        }
+        return isValid;
     }
     
     private boolean isPartEmpty(Part part) throws IOException{
