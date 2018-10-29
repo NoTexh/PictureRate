@@ -30,7 +30,7 @@
               dsc.getimgid(request.getParameter("id"));
             %>
 
-                 <!-- Bild Name aus Datenbank abfragen -->
+            <!-- Bild Name aus Datenbank abfragen -->
             <h1>
                 <%
                 out.println(dsc.test());
@@ -47,7 +47,7 @@
                 <table class="bewertungssystem">
                     <colgroup span="5" width="20%"></colgroup>
                     <tr>
-                        <td><button><i class="fas fa-heart"></i></button></td>
+                        <td><button class="btn_bewerten"><i class="fas fa-heart"></i></button></td>
                         <td><button>Upvote (Daumen Hoch/Klatschen)</button></td>
                         <td><button>Favorit (Stern)</button></td>
                         <td><button>Downvote (Daumen Runter)</button></td>
