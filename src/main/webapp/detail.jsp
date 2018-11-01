@@ -21,19 +21,19 @@
                 </form>
             </div>
         </header>
-        
+
         <main>
-        
+
             <!-- imgid aus URL an Servlet übergeben & Servlet Klasse instanzieren für Methodenaufruf -->
             <%
-              DetailSideCall dsc = new DetailSideCall();
-              dsc.getimgid(request.getParameter("id"));
+                DetailSideCall dsc = new DetailSideCall();
+                dsc.getimgid(request.getParameter("id"));
             %>
 
             <!-- Bild Name aus Datenbank abfragen -->
             <h1>
                 <%
-                out.println(dsc.test());
+                    out.println(dsc.test());
                 %>
             </h1>
 
@@ -47,16 +47,23 @@
                 <table class="bewertungssystem">
                     <colgroup span="5" width="20%"></colgroup>
                     <tr>
-                        <td><button class="btn_bewerten"><i class="fas fa-heart"></i></button></td>
-                        <td><button>Upvote (Daumen Hoch/Klatschen)</button></td>
-                        <td><button>Favorit (Stern)</button></td>
-                        <td><button>Downvote (Daumen Runter)</button></td>
-                        <td><button>TopDownvote (Kackhaufen)</button></td>
+                        <td align="center"><button class="btn_bewerten"><i class="fas fa-heart" ></i></button></td>
+                        <td align="center"><button class="btn_bewerten"><i class="fas fa-thumbs-up"></i></button></td>
+                        <td align="center"><button class="btn_bewerten"><i class="fas fa-star"></i></button></td>
+                        <td align="center"><button class="btn_bewerten"><i class="fas fa-thumbs-down"></i></button></td>
+                        <td align="center"><button class="btn_bewerten"><i class="fas fa-poo"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="bewertunganzeigen">5</td>
+                        <td align="center" class="bewertunganzeigen">20</td>
+                        <td align="center" class="bewertunganzeigen"></td>
+                        <td align="center" class="bewertunganzeigen">5</td>
+                        <td align="center" class="bewertunganzeigen">7</td>
                     </tr>
                 </table>
             </div>
 
-            
+
             <hr noshade="noshade">
 
             <!-- Kommentarfunktion -->
@@ -65,14 +72,22 @@
                     <table class="kommentarschreiben">
                         <tr>
                             <td align="left" style="font-size: 19px">Verfassen Sie hier Ihren eigenen Kommentar:</td>
+                            <td style="width: 290px; padding: 2px">
+                                <%
+                                    String errormsg = (String) request.getParameter("input");
+                                    if (errormsg != null) {
+                                        out.println("<p style=\"color: #721c24; font-size: 15px; border-radius: 5%;border: 2px solid black; background-color: #f8d7da;\">Bitte geben Sie zuerst einen Kommentar ein</p>");
+                                    }
+                                %>  
+                            </td>
                             <td><input class="btn_post" type="submit" value="Post"></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input type="text" id="comment" name ="comment" class="txt_eingabe" placeholder="Kommentar einfügen"></td>
+                            <td colspan="3"><input type="text" id="comment" name="comment" class="txt_eingabe" placeholder="Kommentar einfügen"></td>    
                         </tr>
                     </table>
                     <input type="hidden" name="id" value="<%out.println(request.getParameter("id"));%>">
-                    <input type="hidden" name="comid" value="<% int laenge = dsc.getcomments(); out.println(laenge+1);%>">
+                    <input type="hidden" name="comid" value="<% int laenge = dsc.getcomments(); out.println(laenge + 1);%>">
                 </form>
             </div>
 
@@ -80,13 +95,17 @@
 
             <!-- Kommentare ausgeben -->
             <div>
-                <table width="100%" border="2px black">
+                <table style="width: 100%; border: 1px solid" cellspacing="0">
                     <caption>Kommentare</caption>
                     <%
+                        int test = laenge - 1;
                         for (int i = 0; i < laenge; i++) {
+                            out.println("<tr style=\"margin: 50px\">");
+                            out.println("<td align=\"center\" rowspan=\"2\" style=\"width: 20%; padding: 5px; border: 0.5px solid\">" + dsc.comments[test - i][0] + "</td>");
+                            out.println("<td align=\"left\" style=\"padding: 5px; text-decoration: underline; border: 0.5px solid; border-bottom: 0\">" + dsc.comments[test - i][2] + "</td>");
+                            out.println("</tr>");
                             out.println("<tr>");
-                            out.println("<td align=\"center\" style=\"width: 30%\">" + dsc.comments [i] [0] + "</td>");
-                            out.println("<td align=\"left\" style=\"padding: 5px\">" + dsc.comments [i] [1] + "</td>");
+                            out.println("<td align=\"left\" style=\"padding: 5px; border: 0.5px solid; border-top: 0\">" + dsc.comments[test - i][1] + "</td>");
                             out.println("</tr>");
                         }
                     %>

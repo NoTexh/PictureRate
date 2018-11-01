@@ -81,7 +81,7 @@ public class DetailSideCall extends HttpServlet {
 
     /* Variablen für Kommentarausgabe*/
     public String[][] comments;
-    private String SQL_Com = "select datediff(now(), uploaddate) as datedif, timediff(now(), uploaddate) as timedif, kommentar from kommentare where idpicture = ";
+    private String SQL_Com = "select datediff(now(), uploaddate) as datedif, timediff(now(), uploaddate) as timedif, idkommentar, kommentar from kommentare where idpicture = ";
     int laenge = 0;
 
     public int getcomments() throws ServletException {
@@ -101,7 +101,7 @@ public class DetailSideCall extends HttpServlet {
             }
             /*Daten aus dem ResultSet auslesen*/
             try (ResultSet rs = statement.executeQuery()) {
-                comments = new String[laenge][2];
+                comments = new String[laenge][3];
                 while (rs.next()) {
                     comments[i][0] = new String();
                     
@@ -114,18 +114,31 @@ public class DetailSideCall extends HttpServlet {
                     
                     if (tag != 0) {
                         comments [i] [0]  = "Vor: " + tag + " Tagen";
+                        if (tag == 1) {
+                            comments [i] [0]  = "Vor: " + tag + " Tag";
+                        }
                     } else if (stunde != 0) {
                         comments [i] [0] = "Vor: " + stunde + " Stunden";
+                        if (stunde == 1) {
+                            comments [i] [0] = "Vor: " + stunde + " Stunde";
+                        }
                     } else if (minute != 0) {
                         comments [i] [0] = "Vor: " + minute + " Minuten";
+                        if (minute == 1) {
+                            comments [i] [0] = "Vor: " + minute + " Minute";
+                        }
                     } else {
                         comments [i] [0] = "Vor: " + sekunde + " Sekunden";
+                        if (sekunde == 1) {
+                            comments [i] [0] = "Vor: " + sekunde + " Sekunde";
+                        }
                     }
-                    
- //                   comments [i] [0] = "Tage:" + tag + "Stunde:" + stunde + "Minute:" + minute + "Sekunde:" + sekunde + "/";
                     
                     comments[i][1] = new String();
                     comments[i][1] = rs.getString("kommentar");
+                    
+                    comments[i][2] = new String();
+                    comments[i][2] = rs.getString("idkommentar");
                     i++;
                 }
                 return laenge;
@@ -142,7 +155,7 @@ public class DetailSideCall extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+     */    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -150,21 +163,30 @@ public class DetailSideCall extends HttpServlet {
         String comid = request.getParameter("comid");
         String test1 = request.getParameter("comment");
         imgid = request.getParameter("id");
-        String SQL_INSERT = "insert into kommentare values(" + imgid + ", " + comid + ", \"" + test1 + "\", NOW())";
-
-        MysqlDataSource ds = DbConnection.getDataSource();
-        try (Connection connection = ds.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SQL_INSERT)) {
-            try {
-                statement.executeUpdate();
-            } catch (SQLException f) {
-                throw new ServletException(SQL_INSERT);
-            }
-
-        } catch (SQLException ex) {
-            throw new ServletException("Whoopsi Db Verbindung hat nicht geklappt!");
+        String SQL_INSERT = "insert into kommentare(idpicture, idkommentar, kommentar, uploaddate) values(?, ?, ?, NOW())";
+        
+        if (test1 == "") {
+            response.sendRedirect("/picturerate/detailaufruf?id=" + imgid + "&input=noInput");
         }
-        response.sendRedirect("/picturerate/detailaufruf?id=" + imgid);
+        else {
+        
+            MysqlDataSource ds = DbConnection.getDataSource();
+            try (Connection connection = ds.getConnection();
+                    PreparedStatement statement = connection.prepareStatement(SQL_INSERT)) {
+                try {
+                    statement.setString(1, imgid);
+                    statement.setString(2, comid);
+                    statement.setString(3, test1);
+                    statement.executeUpdate();
+                } catch (SQLException f) {
+                    throw new ServletException(SQL_INSERT);
+                }
+
+            } catch (SQLException ex) {
+                throw new ServletException("Whoopsi Db Verbindung hat nicht geklappt!");
+            }
+            response.sendRedirect("/picturerate/detailaufruf?id=" + imgid);
+        }
     }
 
     /**

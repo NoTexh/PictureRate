@@ -26,6 +26,11 @@ img {
     width: 100%;
 }
 
+.bewertunganzeigen {
+    margin-top: 5px;
+    padding: 10px;
+}
+
 input {
     width: 100%;
 }
@@ -55,6 +60,8 @@ input {
 
 .btn_bewerten {
     border-radius: 50%;
+    font-size: 50px;
+    padding: 5px;
 }
 
 .txt_eingabe {
