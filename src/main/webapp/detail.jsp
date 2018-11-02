@@ -6,9 +6,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Picture Rate</title>
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
         <link rel="stylesheet" href="./css/detail.css">
         <link rel="stylesheet" href="./css/styles.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
     </head>
     <body>
         <header>
@@ -43,37 +43,73 @@
             </div>
 
             <!-- Bewertungsfunktionen -->
+            <%
+                dsc.getRating();
+                String heart = dsc.rating[0];
+                String thumbup = dsc.rating[1];
+                String thumbdown = dsc.rating[2];
+                String poop = dsc.rating[3];
+                String star = dsc.rating [4];
+                String farbe = "";
+                if (star.equals("1")) {
+                    farbe = "#FFFF00";
+                } else {
+                    farbe= "white";
+                }
+            %>            
             <div>
                 <form action="ratingbyid" method="GET" enctype="multipart/form-data">
                     <table class="bewertungssystem">
                         <colgroup span="5" width="20%"></colgroup>
                         <tr>
-                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="rateheart"><i class="fas fa-heart" ></i></button></td>
-                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="ratethumbup"><i class="fas fa-thumbs-up"></i></button></td>
-                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="star"><i class="fas fa-star"></i></button></td>
-                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="ratethumbdown"><i class="fas fa-thumbs-down"></i></button></td>
-                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="ratepoop"><i class="fas fa-poo"></i></button></td>
+                            <td align="center">
+                                <button class="btn_bewerten" name="btn" type="submit" value="rateheart">
+                                    <span class="fa-stack fa-1x">
+                                        <i class="fas fa-heart fa-stack-2x" style="color: #AF0000"></i>
+                                        <strong class="fa-stack-1x heart-text" style="color: white"><%out.print(heart);%></strong>
+                                    </span>
+                                </button>
+                            </td>
+                            <td align="center">
+                                <button class="btn_bewerten" name="btn" type="submit" value="ratethumbup">
+                                    <span class="fa-stack fa-1x">
+                                        <i class="fas fa-thumbs-up fa-stack-2x" style="color: #0000AF"></i>
+                                        <strong class="fa-stack-1x thumb-up-text" style="color: white"><%out.print(thumbup);%></strong>
+                                    </span>
+                                </button>
+                            </td>
+                            <td align="center">
+                                <button class="btn_bewerten" name="btn" type="submit" value="star">
+                                    <span class="fa-stack fa-1x">
+                                        <i class="fas fa-star fa-stack-2x" style="color: <%out.print(farbe);%>"></i>
+                                        <strong class="fa-stack-1x star-text"></strong>
+                                    </span>
+                                </button>
+                            </td>
+                            <td align="center">
+                                <button class="btn_bewerten" name="btn" type="submit" value="ratethumbdown">
+                                    <span class="fa-stack fa-1x">
+                                        <i class="fas fa-thumbs-down fa-stack-2x" style="color: #0000AF"></i>
+                                        <strong class="fa-stack-1x thumb-down-text" style="color: white"><%out.print(thumbdown);%></strong>
+                                    </span>
+                                </button>
+                            </td>
+                            <td align="center">
+                                <button class="btn_bewerten" name="btn" type="submit" value="ratepoop">
+                                    <span class="fa-stack fa-1x">
+                                        <i class="fas fa-poop fa-stack-2x" style="color: #804000"></i>
+                                        <strong class="fa-stack-1x poop-text" style="color: white"><%out.print(poop);%></strong>
+                                    </span>
+                                </button>
+                            </td>
                         </tr>
-                            <%
-                                dsc.getRating();
-                                String heart = dsc.rating[0];
-                                String thumbup = dsc.rating[1];
-                                String thumbdown = dsc.rating[2];
-                                String poop = dsc.rating[3];
-                                out.println("<tr>");
-                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + heart + "</td>");
-                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + thumbup + "</td>");
-                                out.println("<td></td>");
-                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + thumbdown + "</td>");
-                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + poop + "</td>");
-                                out.println("</tr>");
-                            %>
                     </table>
                     <input type="hidden" name="id" value="<%out.println(request.getParameter("id"));%>">
                     <input type="hidden" name="heart" value="<%out.println(heart);%>">
                     <input type="hidden" name="thumbup" value="<%out.println(thumbup);%>">
                     <input type="hidden" name="thumbdown" value="<%out.println(thumbdown);%>">
                     <input type="hidden" name="poop" value="<%out.println(poop);%>">
+                    <input type="hidden" name="star" value="<%out.println(star);%>">
                 </form>
             </div>
 

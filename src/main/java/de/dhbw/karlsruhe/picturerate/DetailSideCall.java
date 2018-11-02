@@ -121,12 +121,12 @@ public class DetailSideCall extends HttpServlet {
     }
     
     //Rating anzeigen in jsp über instanzvariable rating[]
-    public String SQL_rate = "select rateheart, ratethumbup, ratethumbdown, ratepoop from picture where idpicture=";
+    public String SQL_rate = "select rateheart, ratethumbup, ratethumbdown, ratepoop, ratestar from picture where idpicture=";
     public String[] rating;
     
     public void getRating() throws ServletException {
         detailtest = DbConnection.getDataSource();
-        rating = new String[4];
+        rating = new String[5];
         SQL_rate = SQL_rate + imgid;
         try (Connection connection = detailtest.getConnection();
                     PreparedStatement statement = connection.prepareStatement(SQL_rate)) {
@@ -140,6 +140,8 @@ public class DetailSideCall extends HttpServlet {
                     rating [2] = rs.getString("ratethumbdown");
                     rating [3] = new String();
                     rating [3] = rs.getString("ratepoop");
+                    rating [4] = new String();
+                    rating [4] = rs.getString("ratestar");
                 }
             }
         } catch (SQLException ex) {
