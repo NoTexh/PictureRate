@@ -20,9 +20,11 @@ Eine Verbindung unter localhost:3306 einrichten mit den entsprechenden Benutzern
 * Nun muss noch eine Kommentartabelle `kommentare` erstellt werden. Diese beinhaltet die ID der Bilder unter dem Namen `idpicture` und die ID           der Kommentare mit dem Namen `idkommentar`. Dabei sollen weder idpicture noch idkommentar ein Primary Key, Not Null oder Auto           Incrementier sein. Die letzte Spalte mit dem Namen `kommentar` soll das Kommentar beinhalten und den Datentyp **VARCHAR** haben.
 
 *Für das Bewertungssystem muss die Tabelle picture angepasst werden.
+
 ALTER TABLE `picturerate`.`picture` 
 ADD COLUMN `rateheart` VARCHAR(45) NULL DEFAULT 0 AFTER `uploaddate`,
 ADD COLUMN `ratethumbup` VARCHAR(45) NULL DEFAULT 0 AFTER `rateheart`,
 ADD COLUMN `ratethumbdown` VARCHAR(45) NULL DEFAULT 0 AFTER `ratethumbup`,
-ADD COLUMN `ratepoop` VARCHAR(45) NULL DEFAULT 0 AFTER `ratethumbdown`;
+ADD COLUMN `ratepoop` VARCHAR(45) NULL DEFAULT 0 AFTER `ratethumbdown`
+ADD COLUMN `ratestar` VARCHAR(45) NULL DEFAULT 0 AFTER `ratepoop`;
 
