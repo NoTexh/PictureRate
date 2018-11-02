@@ -37,9 +37,10 @@ public class RatingById extends HttpServlet {
         
         datasrc = new DbConnection().getDataSource();
         
-        if (btn == "star") {
-            response.sendRedirect("/picturerate/detailaufruf?id=" + imgid);
+        if (btn.equals("star")) {
         }
+        else {
+            
         
         if (btn.equals("rateheart")) {
             String heart = request.getParameter("heart");
@@ -70,7 +71,7 @@ public class RatingById extends HttpServlet {
            throw new ServletException("Whoopsi");
         }
         
-        
+        }
         response.sendRedirect("/picturerate/detailaufruf?id=" + imgid);
     }
 
