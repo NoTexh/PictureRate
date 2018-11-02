@@ -44,23 +44,37 @@
 
             <!-- Bewertungsfunktionen -->
             <div>
-                <table class="bewertungssystem">
-                    <colgroup span="5" width="20%"></colgroup>
-                    <tr>
-                        <td align="center"><button class="btn_bewerten"><i class="fas fa-heart" ></i></button></td>
-                        <td align="center"><button class="btn_bewerten"><i class="fas fa-thumbs-up"></i></button></td>
-                        <td align="center"><button class="btn_bewerten"><i class="fas fa-star"></i></button></td>
-                        <td align="center"><button class="btn_bewerten"><i class="fas fa-thumbs-down"></i></button></td>
-                        <td align="center"><button class="btn_bewerten"><i class="fas fa-poo"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="bewertunganzeigen">5</td>
-                        <td align="center" class="bewertunganzeigen">20</td>
-                        <td align="center" class="bewertunganzeigen"></td>
-                        <td align="center" class="bewertunganzeigen">5</td>
-                        <td align="center" class="bewertunganzeigen">7</td>
-                    </tr>
-                </table>
+                <form action="ratingbyid" method="GET" enctype="multipart/form-data">
+                    <table class="bewertungssystem">
+                        <colgroup span="5" width="20%"></colgroup>
+                        <tr>
+                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="rateheart"><i class="fas fa-heart" ></i></button></td>
+                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="ratethumbup"><i class="fas fa-thumbs-up"></i></button></td>
+                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="star"><i class="fas fa-star"></i></button></td>
+                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="ratethumbdown"><i class="fas fa-thumbs-down"></i></button></td>
+                            <td align="center"><button class="btn_bewerten" name="btn" type="submit" value="ratepoop"><i class="fas fa-poo"></i></button></td>
+                        </tr>
+                            <%
+                                dsc.getRating();
+                                String heart = dsc.rating[0];
+                                String thumbup = dsc.rating[1];
+                                String thumbdown = dsc.rating[2];
+                                String poop = dsc.rating[3];
+                                out.println("<tr>");
+                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + heart + "</td>");
+                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + thumbup + "</td>");
+                                out.println("<td></td>");
+                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + thumbdown + "</td>");
+                                out.println("<td align=\"center\" class=\"bewertunganzeigen\">" + poop + "</td>");
+                                out.println("</tr>");
+                            %>
+                    </table>
+                    <input type="hidden" name="id" value="<%out.println(request.getParameter("id"));%>">
+                    <input type="hidden" name="heart" value="<%out.println(heart);%>">
+                    <input type="hidden" name="thumbup" value="<%out.println(thumbup);%>">
+                    <input type="hidden" name="thumbdown" value="<%out.println(thumbdown);%>">
+                    <input type="hidden" name="poop" value="<%out.println(poop);%>">
+                </form>
             </div>
 
 
@@ -77,7 +91,7 @@
                                     String errormsg = (String) request.getParameter("input");
                                     if (errormsg != null) {
                                         out.println("<p style=\"color: #721c24; font-size: 15px; border-radius: 5%;border: 2px solid black; background-color: #f8d7da;\">Bitte geben Sie zuerst einen Kommentar ein</p>");
-                                    }
+                                    };
                                 %>  
                             </td>
                             <td><input class="btn_post" type="submit" value="Post"></td>
