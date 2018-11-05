@@ -18,15 +18,23 @@
             Welcome to PictureRate
             <div class="suchleiste">
                 <form action="PicturesFromDB" method="GET">
-                    <input class="suchleiste-input" type="text" name="suche" placeholder="Bild suchen...">
+                    <input class="suchleiste-input" type="text" name="suche" placeholder="Bild suchen..."
+                           value="<%
+                               String errorMessage = (String) request.getAttribute("error");
+                               if (errorMessage == "noMatch") {
+                                   out.println("Kein Treffer!");
+                               }
+                           %>"
+                           style="<%
+                               errorMessage = (String) request.getAttribute("error");
+                               if (errorMessage == "noMatch") {
+                                   out.println("color:red;");
+                               }
+                           %>"
+                           >
                 </form>
             </div>
-            <%
-                String errorMessage = (String) request.getAttribute("error");
-                if (errorMessage == "noMatch") {
-                    out.println("<tr><td colspan=\"2\"><div class=\"alert alert-danger\" role=\"alert\">Kein Treffer!</div></td></tr>");
-                }
-            %>
+
         </header>
         <main>
             <%
