@@ -31,7 +31,7 @@ ADD COLUMN `ratestar` VARCHAR(45) NULL DEFAULT 0 AFTER `ratepoop`;
 *SQL-Befehl: Kommentar Tabelle erstellen
 
 CREATE TABLE `picturerate`.`kommentare` (
-  `idkommentare` INT(11) NOT NULL,
+  `idkommentar` INT(11) NOT NULL,
   `idpicture` INT(11) NOT NULL,
   `kommentar` VARCHAR(45) NOT NULL,
   `uploaddate` DATETIME NULL);
