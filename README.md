@@ -18,3 +18,21 @@ Eine Verbindung unter localhost:3306 einrichten mit den entsprechenden Benutzern
 * Erstellen der Bild-Tabelle mit dem Namen `picture`. Dort soll ein Primary Key mit dem Namen `idpicture` erstellt werden. Dieser         wird für jeden Eintrag automatisch gesetzt (Auto-Increment). Anschließend wird eine Reihe mit dem Datenwert **LONGBLOB** und dem             Namen `data` gesetzt. Nun muss ein **VARCHAR** mit dem Namen `name` erstellt werden. Am Ende soll das Uploaddatum gespeichert               werden. Dazu wird der Name `uploaddate` mit dem Typ **DATETIME** benötigt.
 
 * Nun muss noch eine Kommentartabelle `kommentare` erstellt werden. Diese beinhaltet die ID der Bilder unter dem Namen `idpicture` und die ID           der Kommentare mit dem Namen `idkommentar`. Dabei sollen weder idpicture noch idkommentar ein Primary Key, Not Null oder Auto           Incrementier sein. Die letzte Spalte mit dem Namen `kommentar` soll das Kommentar beinhalten und den Datentyp **VARCHAR** haben.
+
+*Für das Bewertungssystem muss die Tabelle picture angepasst werden.
+
+ALTER TABLE `picturerate`.`picture` 
+ADD COLUMN `rateheart` VARCHAR(45) NULL DEFAULT 0 AFTER `uploaddate`,
+ADD COLUMN `ratethumbup` VARCHAR(45) NULL DEFAULT 0 AFTER `rateheart`,
+ADD COLUMN `ratethumbdown` VARCHAR(45) NULL DEFAULT 0 AFTER `ratethumbup`,
+ADD COLUMN `ratepoop` VARCHAR(45) NULL DEFAULT 0 AFTER `ratethumbdown`
+ADD COLUMN `ratestar` VARCHAR(45) NULL DEFAULT 0 AFTER `ratepoop`;
+
+*SQL-Befehl: Kommentar Tabelle erstellen
+
+CREATE TABLE `picturerate`.`kommentare` (
+  `idkommentar` INT(11) NOT NULL,
+  `idpicture` INT(11) NOT NULL,
+  `kommentar` VARCHAR(45) NOT NULL,
+  `uploaddate` DATETIME NULL);
+

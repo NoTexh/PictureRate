@@ -1,9 +1,6 @@
 html{
     background-color: #007ced;
     background: linear-gradient(#007ced, #cce7ff )center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -18,17 +15,13 @@ header {
     text-align: center;
     font-size: 40px;
     font-style: italic;
-    
+     
 }
 header > a{
     margin-top: 12px;
-    color: white;
     width: 70px;
-    height: 70px;
+    color: white;
     float: left;
-}
-header > div{
-    
 }
 
 .suchleiste{
