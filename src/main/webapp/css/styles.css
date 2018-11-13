@@ -19,6 +19,7 @@ header {
 }
 header > a{
     margin-top: 12px;
+    width: 70px;
     color: white;
     float: left;
 }

@@ -4,6 +4,8 @@ html{
 body{
 }
 main{
+    margin-top: 10px;
+    margin-right: 20px;
     justify-content: flex-start;
     flex-wrap: wrap;
     display: flex;
