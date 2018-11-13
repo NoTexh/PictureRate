@@ -5,6 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>PictureRate - Upload</title>
+        <link rel="icon" href="./res/PR-Logo.png">
         <link rel="stylesheet" href="./css/upload.css">
         <link rel="stylesheet" href="./css/styles.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
